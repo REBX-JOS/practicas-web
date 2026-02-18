@@ -11,19 +11,19 @@ import { Product } from '../../models/producto.model';
   styleUrl: './catalogo.css',
 })
 export class Catalogo implements OnInit {
-  productos: Product[] = [];
+  products: Product[] = [];
   isLoading: boolean = true;
 
-  constructor(private productoService: ProductsService) {}
+  constructor(private productsService: ProductsService) {}
 
   ngOnInit(): void {
     this.loadProducts();
   }
 
   private loadProducts(): void {
-    this.productoService.getAll().subscribe({
-      next: (productos) => {
-        this.productos = productos;
+    this.productsService.getAll().subscribe({
+      next: (products) => {
+        this.products = products;
         this.isLoading = false;
       },
       error: (error) => {

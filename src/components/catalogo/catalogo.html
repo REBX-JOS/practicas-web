@@ -6,13 +6,13 @@
     <div class="loading">
         <p>Cargando productos...</p>
     </div>
-} @else if (productos.length === 0) {
+} @else if (products.length === 0) {
     <div class="empty">
         <p>No hay productos disponibles</p>
     </div>
 } @else {
     <section class="grid">
-        @for(p of productos; track p.id) {
+        @for(p of products; track p.id) {
             <app-producto-card [product]="p"></app-producto-card>
         }
     </section>
