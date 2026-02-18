@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ProductoCard } from '../producto-card/producto-card'
+import { ProductoCard } from '../producto-card/producto-card';
 import { ProductsService } from '../../services/producto.service';
 import { Product } from '../../models/producto.model';
 
@@ -13,7 +13,8 @@ import { Product } from '../../models/producto.model';
 
 export class Catalogo {
   products: Product[] = [];
-  constructor(private productsService: ProductsService){
-    this.products = this.productsService.getAll;
+  
+  constructor(private productsService: ProductsService) {
+    this.products = this.productsService.getAll; 
   }
 }
