@@ -1,14 +1,17 @@
 import { Component, Input } from '@angular/core';
 import { Product } from '../../models/producto.model';
-import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-producto-card',
-  imports: [CurrencyPipe],
+  imports: [],
+  standalone: true,
   templateUrl: './producto-card.html',
   styleUrl: './producto-card.css',
 })
-
 export class ProductoCard {
   @Input() product!: Product;
+  
+  get formattedPrice(): string {
+    return `$${this.product.price.toLocaleString('es-MX')} MXN`;
+  }
 }

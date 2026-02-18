@@ -1,24 +1,35 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 import { Product } from '../models/producto.model';
 
 @Injectable({ providedIn: 'root' })
 export class ProductsService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   getAll(): Observable<Product[]> {
-    // Pedimos el XML como texto plano
-    return this.http.get('../assets/productos.xml', { responseType: 'text' }).pipe(
+    // Si estamos en el servidor, devolver array vacío
+    if (!isPlatformBrowser(this.platformId)) {
+      return of([]);
+    }
+
+    return this.http.get('assets/productos.xml', { responseType: 'text' }).pipe(
       map((xmlText) => this.parseProductsXml(xmlText))
     );
   }
 
   private parseProductsXml(xmlText: string): Product[] {
+    if (typeof DOMParser === 'undefined') {
+      return [];
+    }
+
     const parser = new DOMParser();
     const doc = parser.parseFromString(xmlText, 'application/xml');
 
-    // Si el XML está mal formado, normalmente aparece <parsererror>
     if (doc.getElementsByTagName('parsererror').length > 0) {
       return [];
     }

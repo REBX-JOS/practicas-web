@@ -6,10 +6,6 @@
     <div class="loading">
         <p>Cargando productos...</p>
     </div>
-} @else if (products.length === 0) {
-    <div class="empty">
-        <p>No hay productos disponibles</p>
-    </div>
 } @else {
     <section class="grid">
         @for(p of products; track p.id) {

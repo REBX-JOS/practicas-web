@@ -17,10 +17,6 @@ export class Catalogo implements OnInit {
   constructor(private productsService: ProductsService) {}
 
   ngOnInit(): void {
-    this.loadProducts();
-  }
-
-  private loadProducts(): void {
     this.productsService.getAll().subscribe({
       next: (products) => {
         this.products = products;
