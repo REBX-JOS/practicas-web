@@ -13,7 +13,7 @@
 		<id>2</id>
 		<name>Teclado Mecánico RGB</name>
 		<price>1299</price>
-		<imageUrl>../images/teclado_mecanico.jpg</imageUrl>
+		<imageUrl>../images/teclado_mecanico.jpg</imageUrl>  
 		<category>Periféricos</category>
 		<description>Teclado mecánico gaming con iluminación RGB personalizable</description>
 		<inStock>true</inStock>
