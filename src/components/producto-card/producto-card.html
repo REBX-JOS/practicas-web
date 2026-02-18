@@ -4,7 +4,7 @@
     <div class = "body">
         <div class = "top">
             <h3 class = "title">{{ product.name }}</h3>
-            <span class = "price">{{ product.price }}</span>
+            <span class="price">{{ product.price | currency:'MXN':'symbol-narrow' }}</span>
         </div>
     </div>
 

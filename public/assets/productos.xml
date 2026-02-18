@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<products>
+	<product>
+		<id>1</id>
+		<name>Audífonos Bluetooth</name>
+		<price>599</price>
+		<imageUrl>../images/audifonos_bluetooth.jpg</imageUrl>
+		<category>Audio</category>
+		<description>Audífonos inalámbricos con cancelación de ruido activa</description>
+		<inStock>true</inStock>
+	</product>
+	<product>
+		<id>2</id>
+		<name>Teclado Mecánico RGB</name>
+		<price>1299</price>
+		<imageUrl>../images/teclado_mecanico.jpg</imageUrl>
+		<category>Periféricos</category>
+		<description>Teclado mecánico gaming con iluminación RGB personalizable</description>
+		<inStock>true</inStock>
+	</product>
+	<product>
+		<id>3</id>
+		<name>Mouse Gaming</name>
+		<price>799</price>
+		<imageUrl>../images/mouse_gaming.jpg</imageUrl>
+		<category>Periféricos</category>
+		<description>Mouse óptico de alta precisión con 16000 DPI, ideal para juegos competitivos</description>
+		<inStock>true</inStock>
+	</product>
+	<product>
+		<id>4</id>
+		<name>Cámara 4K</name>
+		<price>2499</price>
+		<imageUrl>../images/camera_4k.jpg</imageUrl>
+		<category>Video</category>
+		<description>Cámara web profesional con resolución 4K y micrófono</description>
+		<inStock>true</inStock>
+	</product> 
+	<product>
+		<id>5</id>
+		<name>Monitor 27" 144Hz</name>
+		<price>4999</price>
+		<imageUrl>../images/monitor_27_inch_144_hz.jpg</imageUrl>
+		<category>Monitores</category>
+		<description>Monitor gaming de 27 pulgadas con tasa de refresco de 144Hz</description>
+		<inStock>true</inStock>
+	</product> 
+	<product>
+		<id>6</id>
+		<name>Micrófono USB</name>
+		<price>1899</price>
+		<imageUrl>../images/microfono_usb.jpg</imageUrl>
+		<category>Audio</category>
+		<description>Micrófono de condensador USB para streaming y podcasts</description>
+		<inStock>true</inStock>
+	</product> 
+	<product>
+		<id>7</id>
+		<name>Gabinete ASUS</name>
+		<price>3199</price>
+		<imageUrl>../images/gabinete_asus.jpg</imageUrl>
+		<category>Componentes</category>
+		<description>Gabinete gaming con iluminación RGB y ventilación optimizada</description>
+		<inStock>true</inStock>
+	</product>		
+    <product>
+        <id>8</id>
+        <name>Silla Gamer</name>
+        <price>5999</price>
+        <imageUrl>../images/silla_gamer.jpg</imageUrl>
+        <category>Mobiliario</category>
+        <description>Silla ergonómica con soporte lumbar y reposabrazos ajustables</description>
+        <inStock>true</inStock>
+    </product>
+    <product>
+        <id>9</id>
+        <name>Control PlayStation</name>
+        <price>1499</price>
+        <imageUrl>../images/control_playstation.jpg</imageUrl>
+        <category>Gaming</category>
+        <description>Control inalámbrico compatible con PC y consola PlayStation</description>
+        <inStock>false</inStock>
+    </product>
+    <product>
+        <id>10</id>
+        <name>Bocina</name>
+        <price>2199</price>
+        <imageUrl>../images/bocina_jbl.jpg</imageUrl>
+        <category>Audio</category>
+        <description>Bocina Bluetooth portátil con sonido envolvente y resistente al agua</description>
+        <inStock>true</inStock>
+    </product>
+    <product>
+        <id>11</id>
+        <name>Mouse Oficina</name>
+        <price>399</price>
+        <imageUrl>../images/mouse_oficina.jpg</imageUrl>
+        <category>Periféricos</category>
+        <description>Mouse ergonómico inalámbrico ideal para trabajo de oficina</description>
+        <inStock>true</inStock>
+    </product>
+    <product>
+        <id>12</id>
+        <name>Teclado Membrana</name>
+        <price>499</price>
+        <imageUrl>../images/teclado_membrana.jpg</imageUrl>
+        <category>Periféricos</category>
+        <description>Teclado silencioso con diseño compacto y teclas de membrana</description>
+        <inStock>true</inStock>
+    </product>
