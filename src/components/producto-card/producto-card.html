@@ -1,13 +1,9 @@
-<article class = "card">
-    <img [src] = "product.imageUrl" [alt] = "product.name" class = "img">
-    
-    <div class = "body">
-        <div class = "top">
-            <h3 class = "title">{{ product.name }}</h3>
-            <span class="price">{{ formattedPrice }}</span>
-        </div>
-    </div>
-
-    <p class = "meta">{{ product.category }}</p>
-    <p class = "desc">{{ product.description }}</p>
+<article class="card">
+  <img [src]="product.imageUrl" [alt]="product.name" class="img">
+  <div class="body">
+    <h3 class="title">{{ product.name }}</h3>
+    <p class="meta">{{ product.category }}</p>
+    <p class="desc">{{ product.description }}</p>
+    <span class="price">{{ formattedPrice }}</span>
+  </div>
 </article>

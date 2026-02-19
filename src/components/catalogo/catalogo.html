@@ -3,13 +3,13 @@
 </header>
 
 @if (isLoading) {
-    <div class="loading">
-        <p>Cargando productos...</p>
-    </div>
+  <div class="loading">Cargando productos...</div>
+} @else if (products.length === 0) {
+  <div class="loading">No se encontraron productos</div>
 } @else {
-    <section class="grid">
-        @for(p of products; track p.id) {
-            <app-producto-card [product]="p"></app-producto-card>
-        }
-    </section>
+  <section class="grid">
+    @for(p of products; track p.id) {
+       <app-producto-card [product]="p"></app-producto-card>
+    }
+  </section>
 }

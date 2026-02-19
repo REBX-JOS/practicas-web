@@ -12,18 +12,19 @@ import { Product } from '../../models/producto.model';
 })
 export class Catalogo implements OnInit {
   products: Product[] = [];
-  isLoading: boolean = true;
+  isLoading = true;
 
   constructor(private productsService: ProductsService) {}
 
   ngOnInit(): void {
     this.productsService.getAll().subscribe({
-      next: (products) => {
-        this.products = products;
+      next: (prods) => {
+        console.log('Productos cargados:', prods);
+        this.products = prods;
         this.isLoading = false;
       },
-      error: (error) => {
-        console.error('Error al cargar productos:', error);
+      error: (err) => {
+        console.error('Error al cargar productos:', err);
         this.isLoading = false;
       }
     });

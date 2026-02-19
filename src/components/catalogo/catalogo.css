@@ -1,7 +1,6 @@
 .header {
     margin-bottom: 64px;
     padding: 0;
-    background: transparent;
     text-align: left;
     position: relative;
 }
@@ -10,8 +9,8 @@
     margin: 0 0 16px 0;
     font-size: 48px;
     font-weight: 700;
-    letter-spacing: -0.02em;
     color: #1a1a1a;
+    letter-spacing: -0.02em;
 }
 
 .header::after {

@@ -1,7 +1,7 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable, of } from 'rxjs';
+import { Observable, of, map } from 'rxjs';
 import { Product } from '../models/producto.model';
 
 @Injectable({ providedIn: 'root' })
@@ -12,31 +12,28 @@ export class ProductsService {
   ) {}
 
   getAll(): Observable<Product[]> {
-    // Si estamos en el servidor, devolver array vacío
     if (!isPlatformBrowser(this.platformId)) {
       return of([]);
     }
-
+    
     return this.http.get('assets/productos.xml', { responseType: 'text' }).pipe(
-      map((xmlText) => this.parseProductsXml(xmlText))
+      map(xml => this.parseProductsXml(xml))
     );
   }
 
   private parseProductsXml(xmlText: string): Product[] {
-    if (typeof DOMParser === 'undefined') {
-      return [];
-    }
-
+    if (typeof DOMParser === 'undefined') return [];
     const parser = new DOMParser();
     const doc = parser.parseFromString(xmlText, 'application/xml');
-
-    if (doc.getElementsByTagName('parsererror').length > 0) {
+    if(doc.getElementsByTagName('parsererror').length) {
+      console.error('Error parseando XML');
       return [];
     }
 
-    const nodes = Array.from(doc.getElementsByTagName('product'));
+    const productNodes = doc.getElementsByTagName('product');
+    console.log(` ${productNodes.length} productos encontrados`);
 
-    return nodes.map((node) => ({
+    return Array.from(productNodes).map(node => ({
       id: this.getNumber(node, 'id'),
       name: this.getText(node, 'name'),
       price: this.getNumber(node, 'price'),

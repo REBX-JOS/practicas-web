@@ -10,7 +10,7 @@ import { Product } from '../../models/producto.model';
 })
 export class ProductoCard {
   @Input() product!: Product;
-  
+
   get formattedPrice(): string {
     return `$${this.product.price.toLocaleString('es-MX')} MXN`;
   }
