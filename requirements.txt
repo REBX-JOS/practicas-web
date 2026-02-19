@@ -1,0 +1,2 @@
+# Compatibilidad con parser de Node.js
+xmldom >= 11.10.0

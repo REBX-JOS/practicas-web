@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ProductoCard } from '../producto-card/producto-card';
 import { ProductsService } from '../../services/producto.service';
 import { Product } from '../../models/producto.model';
@@ -14,19 +14,28 @@ export class Catalogo implements OnInit {
   products: Product[] = [];
   isLoading = true;
 
-  constructor(private productsService: ProductsService) {}
+  constructor(
+    private productsService: ProductsService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
+    
     this.productsService.getAll().subscribe({
       next: (prods) => {
-        console.log('Productos cargados:', prods);
         this.products = prods;
         this.isLoading = false;
+        
+        // FORZAR la detección de cambios
+        this.cdr.detectChanges();
       },
       error: (err) => {
-        console.error('Error al cargar productos:', err);
         this.isLoading = false;
-      }
+        this.cdr.detectChanges();
+      },
+      /*complete: () => {
+        console.log(' Subscribe COMPLETE ejecutado');
+      }*/
     });
   }
 }
