@@ -1,9 +1,15 @@
 <article class="card">
-  <img [src]="product.imageUrl" [alt]="product.name" class="img">
+  <img [src]="product().imageUrl" [alt]="product().name" class="img">
   <div class="body">
-    <h3 class="title">{{ product.name }}</h3>
-    <p class="meta">{{ product.category }}</p>
-    <p class="desc">{{ product.description }}</p>
-    <span class="price">{{ formattedPrice }}</span>
+    <h3 class="title">{{ product().name }}</h3>
+    <p class="meta">{{ product().category }}</p>
+    <p class="desc">{{ product().description }}</p>
+    <span class="price">{{ formattedPrice() }}</span>
+
+    @if (product().inStock) {
+      <button class="buy-btn" type="button" (click)="onAddToCart()">Agregar al carrito</button>
+    } @else {
+      <button class="buy-btn buy-btn-disabled" type="button" disabled>Sin stock</button>
+    }
   </div>
 </article>

@@ -14,6 +14,16 @@ describe('ProductoCard', () => {
 
     fixture = TestBed.createComponent(ProductoCard);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('product', {
+      id: 1,
+      name: 'Producto de prueba',
+      price: 100,
+      imageUrl: 'assets/images/test.jpg',
+      category: 'Test',
+      description: 'Producto para pruebas',
+      inStock: true,
+    });
+    fixture.detectChanges();
     await fixture.whenStable();
   });
 

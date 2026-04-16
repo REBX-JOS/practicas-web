@@ -1,17 +1,22 @@
-import { Component, Input } from '@angular/core';
+import { Component, computed, input, output } from '@angular/core';
 import { Product } from '../../models/producto.model';
 
 @Component({
   selector: 'app-producto-card',
   imports: [],
-  standalone: true,
   templateUrl: './producto-card.html',
   styleUrl: './producto-card.css',
 })
 export class ProductoCard {
-  @Input() product!: Product;
+  readonly product = input.required<Product>();
+  readonly addToCart = output<number>();
 
-  get formattedPrice(): string {
-    return `$${this.product.price.toLocaleString('es-MX')} MXN`;
+  readonly formattedPrice = computed(() => {
+    const amount = this.product().price;
+    return `$${amount.toLocaleString('es-MX')} MXN`;
+  });
+
+  onAddToCart(): void {
+    this.addToCart.emit(this.product().id);
   }
 }

@@ -57,3 +57,46 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+## Integracion DB (Catalogo + Carrito)
+
+Este proyecto ya incluye backend API y base de datos MySQL para manejar productos y carrito.
+
+### Levantar infraestructura
+
+```bash
+docker compose up -d
+```
+
+Servicios:
+- API backend: http://localhost:3000
+- MySQL: localhost:3306
+
+### Iniciar frontend
+
+```bash
+npm start
+```
+
+### Endpoints principales
+
+Productos:
+- `GET /api/products`
+- `GET /api/products/:id`
+- `POST /api/products`
+- `PUT /api/products/:id`
+- `DELETE /api/products/:id`
+
+Carrito:
+- `GET /api/cart`
+- `POST /api/cart/items`
+- `PATCH /api/cart/items/:productId`
+- `DELETE /api/cart/items/:productId`
+- `DELETE /api/cart/items`
+
+### Diagramas Mermaid del entregable
+
+- `docs/flujo_modulos_db.md`
+- `docs/clases_db.md`
+- `docs/er_uml_db.md`
+- `docs/tablas_db.md`

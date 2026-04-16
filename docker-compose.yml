@@ -1,0 +1,42 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: practicas_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: practicas_db
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_USER: practicas_user
+      MYSQL_PASSWORD: practicas_pass
+    ports:
+      - '3306:3306'
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./backend/db/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+    healthcheck:
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost', '-uroot', '-prootpass']
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    image: node:22-alpine
+    container_name: practicas_backend
+    restart: unless-stopped
+    working_dir: /app
+    command: sh -c 'npm install; npm run start'
+    env_file:
+      - ./backend/.env
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./backend:/app
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+volumes:
+  mysql_data:
