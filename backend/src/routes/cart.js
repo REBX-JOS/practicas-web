@@ -4,6 +4,46 @@ const { sendError, toNumber } = require('../utils/errors');
 
 const router = express.Router();
 
+function escapeXml(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
+}
+
+function buildReceiptXml(snapshot) {
+  const generatedAt = new Date().toISOString();
+  const itemsXml = snapshot.items
+    .map(
+      (item) => `    <item>
+      <productId>${item.productId}</productId>
+      <name>${escapeXml(item.name)}</name>
+      <category>${escapeXml(item.category)}</category>
+      <quantity>${item.quantity}</quantity>
+      <unitPrice>${item.unitPrice.toFixed(2)}</unitPrice>
+      <subtotal>${item.subtotal.toFixed(2)}</subtotal>
+    </item>`,
+    )
+    .join('\n');
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<receipt>
+  <meta>
+    <cartId>${snapshot.id}</cartId>
+    <generatedAt>${generatedAt}</generatedAt>
+  </meta>
+  <summary>
+    <totalItems>${snapshot.totalItems}</totalItems>
+    <total>${snapshot.total.toFixed(2)}</total>
+  </summary>
+  <items>
+${itemsXml}
+  </items>
+</receipt>`;
+}
+
 async function getActiveCartId(connection) {
   const [rows] = await connection.query(
     `SELECT id FROM carts WHERE status = 'active' ORDER BY id ASC LIMIT 1`,
@@ -66,6 +106,23 @@ router.get('/', async (_req, res) => {
     return res.json(snapshot);
   } catch (error) {
     return sendError(res, 500, 'No se pudo obtener el carrito', error.message);
+  } finally {
+    connection.release();
+  }
+});
+
+router.get('/receipt.xml', async (_req, res) => {
+  const connection = await pool.getConnection();
+  try {
+    const cartId = await getActiveCartId(connection);
+    const snapshot = await getCartSnapshot(connection, cartId);
+    const xml = buildReceiptXml(snapshot);
+
+    res.setHeader('Content-Type', 'application/xml; charset=utf-8');
+    res.setHeader('Content-Disposition', 'attachment; filename="recibo-carrito.xml"');
+    return res.status(200).send(xml);
+  } catch (error) {
+    return sendError(res, 500, 'No se pudo generar el recibo XML', error.message);
   } finally {
     connection.release();
   }

@@ -132,6 +132,22 @@
     cursor: pointer;
 }
 
+.receipt-btn {
+    width: 100%;
+    border: 1px solid #1f8a4d;
+    background: #f2fff7;
+    color: #1f8a4d;
+    padding: 10px 12px;
+    cursor: pointer;
+    margin: 0 0 8px 0;
+    font-weight: 600;
+}
+
+.receipt-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
 @media (max-width: 768px) {
     .header h1 {
         font-size: 36px;

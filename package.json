@@ -1,0 +1,15 @@
+{
+  "name": "practicas-workspace",
+  "private": true,
+  "scripts": {
+    "start": "npm --prefix frontend start",
+    "build": "npm --prefix frontend run build",
+    "test": "npm --prefix frontend test -- --watch=false",
+    "frontend:start": "npm --prefix frontend start",
+    "frontend:build": "npm --prefix frontend run build",
+    "frontend:test": "npm --prefix frontend test -- --watch=false",
+    "backend:start": "npm --prefix backend start",
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down"
+  }
+}

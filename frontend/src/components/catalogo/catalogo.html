@@ -51,6 +51,13 @@
         <div class="cart-footer">
           <p>Total items: {{ cartTotalItems() }}</p>
           <p>Total: {{ formatCurrency(cartTotal()) }}</p>
+          <button type="button" class="receipt-btn" [disabled]="receiptLoading()" (click)="downloadReceiptXml()">
+            @if (receiptLoading()) {
+              Comprando y descargando recibo...
+            } @else {
+              Comprar
+            }
+          </button>
           <button type="button" class="clear-btn" (click)="clearCart()">Vaciar carrito</button>
         </div>
       }

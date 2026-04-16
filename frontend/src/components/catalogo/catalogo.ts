@@ -35,6 +35,7 @@ export class Catalogo implements OnInit {
   });
   readonly cartLoading = signal(false);
   readonly cartError = signal('');
+  readonly receiptLoading = signal(false);
 
   readonly cartItems = computed(() => this.cart().items);
   readonly hasCartItems = computed(() => this.cartItems().length > 0);
@@ -109,6 +110,29 @@ export class Catalogo implements OnInit {
       error: () => {
         this.cartLoading.set(false);
         this.cartError.set('No se pudo vaciar el carrito.');
+      },
+    });
+  }
+
+  downloadReceiptXml(): void {
+    this.receiptLoading.set(true);
+    this.cartError.set('');
+
+    this.cartService.downloadReceiptXml().subscribe({
+      next: (xmlBlob) => {
+        const objectUrl = URL.createObjectURL(xmlBlob);
+        const anchor = document.createElement('a');
+        anchor.href = objectUrl;
+        anchor.download = `recibo-carrito-${new Date().toISOString().slice(0, 10)}.xml`;
+        document.body.appendChild(anchor);
+        anchor.click();
+        document.body.removeChild(anchor);
+        URL.revokeObjectURL(objectUrl);
+        this.receiptLoading.set(false);
+      },
+      error: () => {
+        this.receiptLoading.set(false);
+        this.cartError.set('No se pudo generar el recibo XML.');
       },
     });
   }

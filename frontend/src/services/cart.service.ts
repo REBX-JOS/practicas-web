@@ -35,4 +35,10 @@ export class CartService {
   clearCart(): Observable<Cart> {
     return this.http.delete<Cart>(`${API_BASE_URL}/cart/items`);
   }
+
+  downloadReceiptXml(): Observable<Blob> {
+    return this.http.get(`${API_BASE_URL}/cart/receipt.xml`, {
+      responseType: 'blob',
+    });
+  }
 }
