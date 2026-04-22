@@ -16,5 +16,8 @@
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "mysql2": "^3.22.0"
+  },
+  "devDependencies": {
+    "eslint": "^10.2.1"
   }
 }

@@ -10,7 +10,7 @@ const API_BASE_URL = 'http://localhost:3000/api';
 export class ProductsService {
   constructor(
     private http: HttpClient,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: object
   ) {}
 
   getAll(): Observable<Product[]> {
