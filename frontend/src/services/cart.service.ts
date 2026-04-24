@@ -1,7 +1,7 @@
 import { Inject, Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 import { Cart } from '../models/cart.model';
 
 const API_BASE_URL = 'http://localhost:3000/api';
@@ -19,6 +19,14 @@ export class CartService {
 
     return this.http.get<Cart>(`${API_BASE_URL}/cart`);
   }
+
+  getTotal(): number {
+    let total = 0;
+    this.getCart().subscribe(cart => {
+      total = cart.total;
+    });
+    return total;
+  } 
 
   addItem(productId: number, quantity = 1): Observable<Cart> {
     return this.http.post<Cart>(`${API_BASE_URL}/cart/items`, { productId, quantity });
