@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   OnInit,
   computed,
@@ -7,21 +6,22 @@ import {
   signal,
 } from '@angular/core';
 import { ProductoCard } from '../producto-card/producto-card';
-import { ProductsService } from '../../services/producto.service';
-import { CartService } from '../../services/cart.service';
+import { ProductsService } from '../../app/features/products';
+import { CartService } from '../../app/features/cart';
 import { Product } from '../../models/producto.model';
 import { Cart, CartItem } from '../../models/cart.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-catalogo',
   imports: [ProductoCard],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './catalogo.html',
   styleUrl: './catalogo.css',
 })
 export class Catalogo implements OnInit {
   private readonly productsService = inject(ProductsService);
   private readonly cartService = inject(CartService);
+  private readonly router = inject(Router);
 
   readonly products = signal<Product[]>([]);
   readonly isLoading = signal(true);
@@ -35,7 +35,6 @@ export class Catalogo implements OnInit {
   });
   readonly cartLoading = signal(false);
   readonly cartError = signal('');
-  readonly receiptLoading = signal(false);
 
   readonly cartItems = computed(() => this.cart().items);
   readonly hasCartItems = computed(() => this.cartItems().length > 0);
@@ -114,27 +113,8 @@ export class Catalogo implements OnInit {
     });
   }
 
-  downloadReceiptXml(): void {
-    this.receiptLoading.set(true);
-    this.cartError.set('');
-
-    this.cartService.downloadReceiptXml().subscribe({
-      next: (xmlBlob) => {
-        const objectUrl = URL.createObjectURL(xmlBlob);
-        const anchor = document.createElement('a');
-        anchor.href = objectUrl;
-        anchor.download = `recibo-carrito-${new Date().toISOString().slice(0, 10)}.xml`;
-        document.body.appendChild(anchor);
-        anchor.click();
-        document.body.removeChild(anchor);
-        URL.revokeObjectURL(objectUrl);
-        this.receiptLoading.set(false);
-      },
-      error: () => {
-        this.receiptLoading.set(false);
-        this.cartError.set('No se pudo generar el recibo XML.');
-      },
-    });
+  goToCheckout(): void {
+    this.router.navigate(['/checkout']);
   }
 
   formatCurrency(amount: number): string {

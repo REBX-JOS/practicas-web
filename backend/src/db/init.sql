@@ -36,8 +36,25 @@ CREATE TABLE IF NOT EXISTS cart_items (
   CONSTRAINT chk_cart_items_price_non_negative CHECK (unit_price >= 0)
 );
 
+CREATE TABLE IF NOT EXISTS paypal_orders (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  cart_id INT UNSIGNED NULL,
+  paypal_order_id VARCHAR(64) NOT NULL,
+  paypal_capture_id VARCHAR(64) NULL,
+  status VARCHAR(32) NOT NULL,
+  payer_email VARCHAR(160) NULL,
+  amount DECIMAL(10, 2) NOT NULL,
+  currency_code VARCHAR(8) NOT NULL DEFAULT 'MXN',
+  raw_response JSON NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT uq_paypal_order_id UNIQUE (paypal_order_id),
+  CONSTRAINT fk_paypal_orders_cart FOREIGN KEY (cart_id) REFERENCES carts(id) ON DELETE SET NULL
+);
+
 CREATE INDEX idx_products_category ON products(category);
 CREATE INDEX idx_cart_items_cart_id ON cart_items(cart_id);
+CREATE INDEX idx_paypal_orders_status ON paypal_orders(status);
 
 INSERT INTO products (name, price, image_url, category, description, in_stock)
 SELECT 'Audifonos Bluetooth', 599.00, 'assets/images/audifonos_bluetooth.jpg', 'Audio', 'Audifonos inalambricos con cancelacion de ruido activa', 1

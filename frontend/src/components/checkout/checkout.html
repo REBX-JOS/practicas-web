@@ -1,25 +1,29 @@
 <h2>Checkout</h2>
 
-@if (carrito().length === 0) {
+@if (isLoading()) {
+  <p>Cargando carrito...</p>
+} @else if (!hasItems()) {
   <p>Tu carrito está vacío.</p>
   <a routerLink="/">Ir al catálogo</a>
 } @else {
   <div style="border:1px solid #ccc; border-radius:12px; padding:16px;">
     <h3>Resumen del pedido</h3>
 
-    @for (producto of carrito(); track producto.id) {
+    @for (item of cartItems(); track item.productId) {
       <p>
-        {{ producto.nombre }} -
-        {{ producto.cantidad }} x
-        {{ producto.precio | currency:'MXN' }}
+        {{ item.name }} -
+        {{ item.quantity }} x
+        {{ item.unitPrice | currency:'MXN' }}
       </p>
     }
 
     <hr>
-    <p><strong>Total: {{ total() | currency:'MXN' }}</strong></p>
+    <p><strong>Total: {{ cartTotal() | currency:'MXN' }}</strong></p>
 
     <div #paypalButtonContainer></div>
 
-    <p>{{ mensaje }}</p>
+    @if (mensaje()) {
+      <p>{{ mensaje() }}</p>
+    }
   </div>
 }

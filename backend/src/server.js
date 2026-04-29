@@ -3,8 +3,9 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const { pingDb } = require('./db');
-const productsRouter = require('./routes/products');
-const cartRouter = require('./routes/cart');
+const productsRouter = require('./modules/products');
+const cartRouter = require('./modules/cart');
+const paypalRouter = require('./modules/paypal');
 
 const app = express();
 const port = Number(process.env.PORT || 3000);
@@ -30,6 +31,7 @@ app.get('/api/health', async (_req, res) => {
 
 app.use('/api/products', productsRouter);
 app.use('/api/cart', cartRouter);
+app.use('/api/paypal', paypalRouter);
 
 app.use((_req, res) => {
   res.status(404).json({ error: 'Ruta no encontrada' });
