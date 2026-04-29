@@ -49,6 +49,12 @@ Thumbs.db
 
 # Personal docs
 /docs
+/FINAL_REPORT.md
+/IMPLEMENTATION_SUMMARY.md
+/MIGRATION_GUIDE.md
+/MVC_ARCHITECTURE.md
+/QUICK_REFERENCE.md
+/VALIDATION_CHECKLIST.md
 
 # Backend local artifacts
 /backend/node_modules/
